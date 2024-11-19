@@ -1,0 +1,253 @@
+﻿@model ML.Usuario
+
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h1 class="text-center mb-md-5 ">Agregar Usuario</h1>
+
+
+@*enctype = "multipart/form-data"metodo de encriptado que no solo mandara datos sino tambien archivos*@
+
+@using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(model => model.IdUsuario);
+    @Html.HiddenFor(model => model.Imagen);
+
+    <body class="center-block bg-opacity-50 bg-white">
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.Nombre, new { @class = "form-label", @placeholder = "Nombre", @style = "text-center" }) @*//output //es como si ocuparamos la etiqueta class en un label con razor*@
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.ApellidoPaterno, new { @class = "form-label", @placeholder = "Apellido Paterno", @style = "" })
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.ApellidoMaterno, new { @class = "form-label", @placeholder = "Apellido Materno", @style = "" })
+                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido Materno", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.UserName, new { @class = "form-label", @placeholder = "Nombre de Usuario", @style = "" })
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Nombre de Usuario", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Email, new { @class = "form-label", @placeholder = "Email", @style = "" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Password, new { @class = "form-label", @placeholder = "Contraseña", @style = "" })
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Contraseña", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.FechaNacimiento, new { @class = "form-label", @placeholder = "Fecha de Nacimiento", @style = "" })
+                @Html.TextBoxFor(model => model.FechaNacimiento, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @style = "" })
+            </div>
+            <div class="col-4">
+                <p>Sexo: </p>
+                @Html.RadioButtonFor(model => model.Sexo, "M", new { @class = "form-check-label", @id = "SexoM", @style = "" })
+                <label>M</label>
+                @Html.RadioButtonFor(model => model.Sexo, "F", new { @class = "form-check-label", @id = "SexoF" })
+                <label>F</label>
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Telefono, new { @class = "form-label", @placeholder = "Telefono", @style = "" })
+                @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @placeholder = "Telefono", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Celular, new { @class = "form-label", @placeholder = "Celular", @style = "" })
+                @Html.TextBoxFor(model => model.Celular, new { @class = "form-control", @placeholder = "Celular", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.CURP, new { @class = "form-label", @placeholder = "CURP", @style = "" })
+                @Html.TextBoxFor(model => model.CURP, new { @class = "form-control", @placeholder = "CURP", @style = "" })
+            </div>
+            <div class="col-2">
+                @Html.LabelFor(model => model.Rol.IdRol, new { @class = "form-label", @placeholder = "Rol", @style = "" })
+                @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Seleccione un Rol", new { @class = "btn btn-default btn-lg dropdown-toggle" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.Calle, new { @class = "form-label", @placeholder = "Calle", @style = "" })
+                @Html.TextBoxFor(model => model.Direccion.Calle, new { @class = "form-control", @placeholder = "Calle", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.NumeroInterior, new { @class = "form-label", @placeholder = "Numero Interior", @style = "" })
+                @Html.TextBoxFor(model => model.Direccion.NumeroInterior, new { @class = "form-control", @placeholder = "Numero Interior", @style = "" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.NumeroExterior, new { @class = "form-label", @placeholder = "Numero Exterior", @style = "" })
+                @Html.TextBoxFor(model => model.Direccion.NumeroExterior, new { @class = "form-control", @placeholder = "Numero Exterior", @style = "" })
+            </div>
+
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado.Pais, new { @class = "form-label", @placeholder = "Pais" })
+                @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "NombrePais"), "Seleccione un Pais", new { @Id = "ddlPais", @class = "btn btn-default btn-lg dropdown-toggle" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado, new { @class = "form-label", @placeholder = "Estado" })
+                @if (Model.Direccion.Colonia.Municipio.Estado.Estados != null)
+                {
+
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "NombreEstado"), "Seleccione un Estado", new { @Id = "ddlEstado", @class = "btn btn-default btn-lg dropdown-toggle" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(String.Empty), "Seleccione un Estado", new { @id = "ddlEstado", @class = "btn btn-default btn-lg dropdown-toggle" })
+
+                }
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio, new { @class = "form-label", @placeholder = "Municipio" })
+                @if (Model.Direccion.Colonia.Municipio.Municipios != null)
+                {
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "NombreMunicipio"), "Seleccione un Municipio", new { @Id = "ddlMunicipio", @class = "btn btn-default btn-lg dropdown-toggle" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(String.Empty), "Seleccione un Municipio", new { @id = "ddlMunicipio", @class = "btn btn-default btn-lg dropdown-toggle" })
+                }
+
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Direccion.Colonia, new { @class = "form-label", @placeholder = "Colonia" })
+                @if (Model.Direccion.Colonia.Colonias != null)
+                {
+
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia, new SelectList(Model.Direccion.Colonia.Colonias, "IdColonia", "NombreColonia", "CodigoPostal"), "Seleccione una Colonia y su C.P.", new { @id = "ddlColonia", @class = "btn btn-default btn-lg dropdown-toggle " })
+
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia, new SelectList(String.Empty), "Seleccione una Colonia y su C.P.", new { @id = "ddlColonia", @class = "btn btn-default btn-lg dropdown-toggle " })
+                }
+            </div>
+
+            <div class="input-group mb-3 input-group-lg">
+                @*@Html.LabelFor(model => model.Imagen, new { @class = "input-group-text bg-warning text-dark" })
+                    @Html.TextBoxFor(model => model.Imagen, new { @type = "text", @class = "form-control" })*@
+                <input id="Imagen" name="Imagen" type="file" onchange="ValidarImagen(event.target.files),visualizarImagen(this)" />
+            </div>
+
+            @if (Model.Imagen == null || Model.Imagen == "")
+            {
+                <div class="input-group mb-3 input-group-lg">
+                    <img src=" https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg" width="200" height="200" />
+                </div>
+
+            }
+            else
+            {
+                <div class="input-group mb-3 input-group-lg">
+                    <img id="img" src="data:image/*;base64,@Model.Imagen" width="200" height="200" />
+                </div>
+            }
+
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Agregar</button>
+            </div>
+        </div>
+    </body>
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $('#ddlPais').change(function () {
+            $('#ddlEstado').empty();
+            var idPais = parseInt($('#ddlPais').val())
+            $.ajax({
+                url: '@Url.Action("EstadoGetByIdPais")',
+                type: 'POST',
+                data: { IdPais: idPais },
+                datatype: 'JSON',
+                success: function (estados) {
+                    $('#ddlEstado').append('<option value = 0 > Selecciona una opcion </opcion>');
+                    $.each(estados, function (i, estado1) {
+                        $('#ddlEstado').append('<option value=' + estado1.IdEstado + '>' + estado1.NombreEstado + '</option>')
+                    })
+                },
+                error: function (result) {
+                    //alert
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+            $('#ddlEstado').change(function () {
+                $('#ddlMunicipio').empty();
+                $.ajax({
+                    url: '@Url.Action("MunicipioGetByIdEstado")',
+                    type: 'POST',
+                    data: { IdEstado: $('#ddlEstado').val() },
+                    datatype: 'JSON',
+                    success: function (municipios) {
+                        $('#ddlMunicipio').append('<option value = 0 > Selecciona una opcion </opcion>');
+                        $.each(municipios, function (i, municipio1) {
+                            $('#ddlMunicipio').append('<option value=' + municipio1.IdMunicipio + '>' + municipio1.NombreMunicipio + '</option>')
+                        })
+                    },
+                    error: function (result) {
+
+                    }
+
+                });
+            });
+    });
+    $(document).ready(function () {
+        $('#ddlMunicipio').change(function () {
+            $('#ddlColonia').empty();
+            $.ajax({
+                url: '@Url.Action("ColoniaGetByIdMunicipio")',
+                type: 'POST',
+                data: { IdMunicipio: $('#ddlMunicipio').val() },
+                datatype: 'JSON',
+                success: function (colonias) {
+                    $('#ddlColonia').append('<option value = 0 > Selecciona una opcion </opcion>');
+                    $.each(colonias, function (i, colonia1) {
+                        $('#ddlColonia').append('<option value=' + colonia1.IdColonia + '>' + colonia1.NombreColonia + colonia1.CodigoPostal + '</option>')
+                    })
+                },
+                error: function (result) {
+
+                }
+            });
+        });
+    });
+
+    function ValidarImagen(files) {
+        var extensionesPermitidas = ['jpeg', 'jpg', 'png'];
+        console.log(document.getElementById("Imagen").files);
+        var extensionArchivo = files[0].name.split('.').pop().toLowerCase();
+        var isValidFile = false; //saber si es valida o no es valida
+
+        for (var index in extensionesPermitidas) {
+            if (extensionArchivo === extensionesPermitidas[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extensiones permitidas son : *.' + extensionesPermitidas.join(', *.'));
+            $("#Imagen").val("")
+        }
+        console.log(document.getElementById("Imagen"));
+        return isValidFile;
+    }
+
+    function visualizarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+

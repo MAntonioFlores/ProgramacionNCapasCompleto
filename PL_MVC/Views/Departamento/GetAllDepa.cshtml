@@ -1,0 +1,72 @@
+﻿@model ML.Departamento
+
+@{
+    ViewBag.Title = "GetAllDepa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align: center; font-size: 40px">Departamento</h2>
+
+<body class="bg-white">
+
+    @*<a href="@Url.Action("MostrarForm","Usuario" type="button", class = "btn btn-secindary")" class="btn btn-secondary" >Agregar Un Nuevo Usuario</a>*@
+    @*Nombre,      nombre del cshtml  Carpeta   *@
+    <div style="display:flex; justify-content:end; margin-bottom: 15px">
+        @Html.ActionLink("Agregar Usuario", "FormDepa", "Departamento", new { area = "" }, new { @class = "btn btn-outline-success" })
+
+    </div>
+
+    <div class="row d-flex justify-content-center " style="">
+
+        @if (Model.Departamentos.Count > 0)
+        {
+            <div class="table-responsive ">
+                <table class="table table-bordered table-responsive table-striped table-dark">
+                    <thead class="thead-dark text-center">
+                        <tr>
+                            <th>ID Departamento</th>
+                            <th>Nombre</th>
+                            <th>ID Area</th>
+                            <th>Nombre Area</th>
+                            <th>Accion a Realizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (ML.Departamento departamento in Model.Departamentos)
+                        {
+                            <tr style="text-align-last: center;">
+                                <td>@departamento.IdDepartamento</td>
+                                <td>@departamento.NombreDepartamento</td>
+                                <td>@departamento.Area.IdArea</td>
+                                <td>@departamento.Area.NombreArea</td>
+
+                                <td>
+                                    <a class="btn btn-outline-warning col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-6" style="margin-bottom: 10px;" href=@Url.Action("FormDepa", "Departamento", new { IdDepartamento = departamento.IdDepartamento })>Editar</a>
+                                    @*<button type="button" class="btn btn-warning" style="margin-bottom: 5px;">Editar Usuario</button>*@
+
+                                    @*<a href="@Url.Action("Delete","GetAll", "Usuario", new {IdDireccion = usuario.Direccion.IdDireccion, IdUsuario = usuario.IdUsuario})"class="btn btn-danger" style="margin-bottom:5px; width:100%" onclick="return confirm('¿Eseguro que deseas eliminar el registro?')">Eliminar</a>*@
+                                    <form action="@Url.Action("Delete", "Departamento")" method="post" onsubmit="return confirm('¿Estás seguro que deseas eliminar el registro?');">
+                                        <input type="hidden" name="IdDepartamento" value="@departamento.IdDepartamento" />
+
+                                        <button type="submit" class="btn btn-outline-danger  col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-6" style="margin-bottom: 2px;">Eliminar</button>
+                                    </form>
+                                    @*<a class="btn btn-danger" style="margin-bottom: 5px;" href=@Url.Action("Form", "Usuario", new {IdUsuario = usuario.IdUsuario, delete = true})>Eliminar Usuario</a>*@
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+        else
+        {
+            <h1>No Se Encontraro Registros</h1>
+        }
+    </div>
+
+</body>
+

@@ -1,0 +1,152 @@
+﻿@model ML.Producto
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center mb-md-5 ">Agregar Producto</h1>
+
+
+@*enctype = "multipart/form-data"metodo de encriptado que no solo mandara datos sino tambien archivos*@
+
+@using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(model => model.IdProducto);
+    @*@Html.HiddenFor(model => model.Departamento.IdDepartamento)*@
+    @Html.HiddenFor(model => model.Imagen);
+
+    <body class="center-block bg-opacity-50 bg-black">
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.Nombre, new { @class = "form-label", @placeholder = "Nombre", @style = "text-center" }) @*//output //es como si ocuparamos la etiqueta class en un label con razor*@
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre", @style = "", @onkeyup = ("soloLetras(this,'lblNombre')") })
+                @*<label style="color:#FF0000" id="lblNombre"></label>*@
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.PrecioUnitario, new { @class = "form-label", @placeholder = "Precio Unitario", @style = "" })
+                @Html.TextBoxFor(model => model.PrecioUnitario, new { @class = "form-control", @placeholder = "Precio Unitario", @style = "", @onkeyup = ("soloLetras(this,'lblApellidoPaterno')") })
+                @*<label style="color:#FF0000" id="lblApellidoPaterno"></label>*@
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Stock, new { @class = "form-label", @placeholder = "Stock", @style = "" })
+                @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", @placeholder = "Stock", @style = "", @onkeyup = ("soloLetras(this,'lblApellidoMaterno')") })
+                @*<label style="color:#FF0000" id="lblApellidoMaterno"></label>*@
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Descripcion, new { @class = "form-label", @placeholder = "Descripcion", @style = "" })
+                @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @placeholder = "Descripcion", @style = "" })
+                @*<label style="color:#FF0000" id="lblNombre"></label>*@
+            </div>
+            <div class="col-6">
+                @Html.LabelFor(model => model.Proveedor.IdProveedor, new { @class = "form-label", @placeholder = "Proveedor", @style = "" })
+                @Html.DropDownListFor(model => model.Proveedor.IdProveedor, new SelectList(Model.Proveedor.Proveedores, "IdProveedor", "Nombre"), "Seleccione un Proveedor", new { @id = "ddlProveedor", @class = "btn btn-default btn-lg dropdown-toggle" })
+            </div>
+
+            <div class="col-4">
+                @Html.LabelFor(model => model.Departamento.Area, new { @class = "form-label", @placeholder = "Area" })
+                @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "NombreArea"), "Seleccione un Area", new { @Id = "ddlArea", @class = "btn btn-default btn-lg dropdown-toggle" })
+            </div>
+            <div class="col-4">
+                @Html.LabelFor(model => model.Departamento, new { @class = "form-label", @placeholder = "Departamento" })
+                @if (Model.Departamento.Departamentos != null)
+                {
+
+                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "NombreDepartamento"), "Seleccione un Departamento", new { @id = "ddlDepartamento", @class = "btn btn-default btn-lg dropdown-toggle " })
+
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(String.Empty), "Seleccione un Departamento", new { @id = "ddlDepartamento", @class = "btn btn-default btn-lg dropdown-toggle " })
+                }
+                @*@Html.DropDownListFor(model => model.Departamento.IdDepartamento, Model.Departamento.Departamentos != null ?
+                    new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "NombreDepartamento") :
+                    new SelectList(Enumerable.Empty<SelectListItem>(), "Seleccione un Departamento"), "Seleccione un Departamento",
+                    new { @id = "ddlDepartamento", @class = "btn btn-default btn-lg dropdown-toggle" })*@
+
+
+            </div>
+
+            <div class="input-group mb-3 input-group-lg">
+                @*@Html.LabelFor(model => model.Imagen, new { @class = "input-group-text bg-warning text-dark" })
+                    @Html.TextBoxFor(model => model.Imagen, new { @type = "text", @class = "form-control" })*@
+                <input id="Imagen" name="Imagen" type="file" onchange="ValidarImagen(event.target.files),visualizarImagen(this)" />
+            </div>
+
+            @*@if (Model.Imagen == null || Model.Imagen == "")
+                {
+                    <div class="input-group mb-3 input-group-lg">
+                        <img src=" https://png.pngtree.com/png-clipart/20190516/original/pngtree-users-vector-icon-png-image_3725294.jpg" width="200" height="200" />
+                    </div>
+
+                }
+                else
+                {*@
+            <div class="input-group mb-3 input-group-lg">
+                <img id="img" src="data:image/*;base64,@Model.Imagen" width="200" height="200" />
+            </div>
+            @*}*@
+
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Agregar</button>
+            </div>
+        </div>
+    </body>
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(document).ready(function () {
+        $('#ddlArea').change(function () {
+            $('#ddlDepartamento').empty();
+            var idArea = parseInt($('#ddlArea').val())
+            $.ajax({
+                url: '@Url.Action("DepartamentosGetByIdArea")',
+                type: 'POST',
+                data: { IdArea: idArea },
+                datatype: 'JSON',
+                success: function (departamentos) {
+                    console.log(departamentos);
+                    $('#ddlDepartamento').append('<option value = 0 > Selecciona una opcion </opcion>');
+                    $.each(departamentos, function (i, departamentos1) {
+                        $('#ddlDepartamento').append('<option value=' + departamentos1.IdDepartamento + '>' + departamentos1.NombreDepartamento + '</option>')
+                    })
+                },
+                error: function (result) {
+
+                }
+
+            });
+        });
+});
+
+    function ValidarImagen(files) {
+        var extensionesPermitidas = ['jpeg', 'jpg', 'png'];
+        console.log(document.getElementById("Imagen").files);
+        var extensionArchivo = files[0].name.split('.').pop().toLowerCase();
+        var isValidFile = false; //saber si es valida o no es valida
+
+        for (var index in extensionesPermitidas) {
+            if (extensionArchivo === extensionesPermitidas[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extensiones permitidas son : *.' + extensionesPermitidas.join(', *.'));
+            $("#Imagen").val("")
+        }
+        console.log(document.getElementById("Imagen"));
+        return isValidFile;
+    }
+
+    function visualizarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/System" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:50622/ServiceProducto.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/ML" />
+  <xs:import schemaLocation="http://localhost:50622/ServiceProducto.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ValueTupleOfbooleanstringArrayOfProductoExceptionc_P_PmD6BT">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueTupleOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/System" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="boolean" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="ArrayOfProducto" Namespace="http://schemas.datacontract.org/2004/07/ML" />
+          <GenericParameter Name="Exception" Namespace="http://schemas.datacontract.org/2004/07/System" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Item1" type="xs:boolean" />
+      <xs:element name="Item2" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/ML" name="Item3" nillable="true" type="q1:ArrayOfProducto" />
+      <xs:element name="Item4" nillable="true" type="tns:Exception" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValueTupleOfbooleanstringArrayOfProductoExceptionc_P_PmD6BT" nillable="true" type="tns:ValueTupleOfbooleanstringArrayOfProductoExceptionc_P_PmD6BT" />
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##local" processContents="skip" />
+    </xs:sequence>
+    <xs:attribute ref="ser:FactoryType" />
+  </xs:complexType>
+  <xs:element name="Exception" nillable="true" type="tns:Exception" />
+  <xs:complexType name="ValueTupleOfbooleanstringExceptionxJG7nVzP">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueTupleOf{0}{1}{2}{#}" Namespace="http://schemas.datacontract.org/2004/07/System" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="boolean" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="Exception" Namespace="http://schemas.datacontract.org/2004/07/System" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Item1" type="xs:boolean" />
+      <xs:element name="Item2" nillable="true" type="xs:string" />
+      <xs:element name="Item3" nillable="true" type="tns:Exception" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValueTupleOfbooleanstringExceptionxJG7nVzP" nillable="true" type="tns:ValueTupleOfbooleanstringExceptionxJG7nVzP" />
+  <xs:complexType name="ValueTupleOfbooleanstringProductoExceptionc_P_PmD6BT">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ValueTupleOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/System" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="boolean" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="Producto" Namespace="http://schemas.datacontract.org/2004/07/ML" />
+          <GenericParameter Name="Exception" Namespace="http://schemas.datacontract.org/2004/07/System" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Item1" type="xs:boolean" />
+      <xs:element name="Item2" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ML" name="Item3" nillable="true" type="q2:Producto" />
+      <xs:element name="Item4" nillable="true" type="tns:Exception" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValueTupleOfbooleanstringProductoExceptionc_P_PmD6BT" nillable="true" type="tns:ValueTupleOfbooleanstringProductoExceptionc_P_PmD6BT" />
+</xs:schema>

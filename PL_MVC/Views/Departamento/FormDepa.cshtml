@@ -1,0 +1,29 @@
+﻿@model ML.Departamento
+
+@{
+    ViewBag.Title = "FormDepa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Agregar Departamento</h2>
+
+@using (Html.BeginForm("FormDepa", "Departamento", FormMethod.Post, new { enctypte = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(model => model.IdDepartamento);
+    <body class="center-block bg-opacity-50 bg-black">
+        <div class="row">
+            <div class="col-4">
+                @Html.LabelFor(model => model.NombreDepartamento, new { @class = "form-label", @placeholder = "Nombre", @style = "text-center" }) @*//output //es como si ocuparamos la etiqueta class en un label con razor*@
+                @Html.TextBoxFor(model => model.NombreDepartamento, new { @class = "form-control", @placeholder = "Nombre", @style = "" })
+            </div>
+            <div class="col-2">
+                @Html.LabelFor(model => model.Area.IdArea, new { @class = "form-label", @placeholder = "Area", @style = "" })
+                @Html.DropDownListFor(model => model.Area.IdArea, new SelectList(Model.Area.Areas, "IdArea", "NombreArea"), "Seleccione un Area", new { @class = "btn btn-default btn-lg dropdown-toggle" })
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg">Agregar</button>
+            </div>
+        </div>
+    </body>
+}

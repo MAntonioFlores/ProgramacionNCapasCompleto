@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "PruebaApi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PruebaApi</h2>
+
+<table class="table table-bordered table-hover table-responsive">
+    <thead class="thead-dark text-center">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Pais</th>
+            <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody id="Api">
+    </tbody>
+</table>
+
+<div>
+    <button class="btn btn-info" onclick="agregar()">Agregar</button>
+
+    <button class="btn btn-danger" onclick="limpiarTabla()">Limpiar</button>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    function agregar() {
+        $.ajax({
+            url: 'https://randomuser.me/api',
+            type: 'GET',
+            datatype: 'JSON',
+            success: function (results) {
+                var resul = '<tr>' +
+                    '<td>' + results.results[0].name.first + '</td>' +
+                    '<td>' + results.results[0].email + '</td>' +
+                    '<td>' + results.results[0].phone + '</td>' +
+                    '<td>' + results.results[0].location.country + '</td>' +
+                    '<td>' + '<img src = "' + results.results[0].picture.thumbnail + '">' + '</td>' +
+                    '</tr>'
+                $('#Api').append(resul);
+            },
+            error: function (error) {
+
+            }
+        })
+    }
+    function limpiarTabla() {
+        $('#Api').empty();
+    }
+</script>
+
+
